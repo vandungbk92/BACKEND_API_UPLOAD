@@ -1,2 +1,17 @@
-# BACKEND_API_UPLOAD
-Tải ảnh và files
+## Install Dependencies
+
+```shell
+npm install
+```
+
+## Start MongoDB
+
+```shell
+mongod
+```
+
+## Run Application
+
+```shell
+npm start
+```

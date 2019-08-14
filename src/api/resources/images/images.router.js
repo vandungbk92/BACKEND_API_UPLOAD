@@ -121,20 +121,37 @@ function checkUploadPathAvatar(req, res, next) {
 // kết thúc config upload avatar
 
 
+function checkUploadPathFolder(req, res, next) {
+  let path = './uploads';
+  fs.exists(path, function(exists) {
+    if(exists) {
+      next();
+    }
+    else {
+      fs.mkdir(path, function(err) {
+        if(err) {
+          console.log('Error in folder creation');
+          next();
+        }
+        next();
+      })
+    }
+  })
+}
 
 export const imagesRouter = express.Router();
 
 imagesRouter
   .route('/')
-  .post(checkUploadPathFiles, uploadFile.single('image'), imagesController.uploadImage)
+  .post(checkUploadPathFolder, checkUploadPathFiles, uploadFile.single('image'), imagesController.uploadImage)
 
 imagesRouter
   .route('/image')
-  .post(checkUploadPath, uploadImage.single('image'), imagesController.uploadImage)
+  .post(checkUploadPathFolder, checkUploadPath, uploadImage.single('image'), imagesController.uploadImage)
 
 imagesRouter
   .route('/avatar')
-  .post(checkUploadPathAvatar, uploadAvatar.single('image'), imagesController.uploadImage)
+  .post(checkUploadPathFolder, checkUploadPathAvatar, uploadAvatar.single('image'), imagesController.uploadImage)
 
 imagesRouter.get('/:fileNm', imagesController.getFileByName)
 imagesRouter.get('/image/:imgNm', imagesController.getImageByName)

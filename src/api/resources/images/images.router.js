@@ -87,6 +87,41 @@ function checkUploadPathFiles(req, res, next) {
 // kết thúc config upload Files
 
 
+
+// config upload avatar
+let storageAvatar = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/avatar')
+  },
+  filename: function (req, file, cb) {
+    let originalFilename = file.originalname;
+    cb(null, originalFilename  )
+  }
+})
+
+let uploadAvatar = multer({ storage: storageAvatar, fileFilter: extFile })
+function checkUploadPathAvatar(req, res, next) {
+  let path = './uploads/avatar';
+  fs.exists(path, function(exists) {
+    if(exists) {
+      next();
+    }
+    else {
+      fs.mkdir(path, function(err) {
+        if(err) {
+          console.log('Error in folder creation');
+          next();
+        }
+        next();
+      })
+    }
+  })
+}
+
+// kết thúc config upload avatar
+
+
+
 export const imagesRouter = express.Router();
 
 imagesRouter
@@ -97,6 +132,9 @@ imagesRouter
   .route('/image')
   .post(checkUploadPath, uploadImage.single('image'), imagesController.uploadImage)
 
+imagesRouter
+  .route('/avatar')
+  .post(checkUploadPathAvatar, uploadAvatar.single('image'), imagesController.uploadImage)
 
 imagesRouter.get('/:fileNm', imagesController.getFileByName)
 imagesRouter.get('/image/:imgNm', imagesController.getImageByName)

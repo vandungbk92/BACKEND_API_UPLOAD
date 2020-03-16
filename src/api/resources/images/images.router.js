@@ -57,7 +57,7 @@ let storageFiles = multer.diskStorage({
 })
 
 function extFileFiles(req, file, cb) {
-  if(!file.originalname.match(/\.(doc|docx|xls|xlsx|excel|pdf)$/)){
+  if(!file.originalname.match(/\.(doc|docx|xls|xlsx|excel|pdf|DOC|DOCX|XLS|XLSX|EXCEL|PDF)$/)){
     return cb(new Error('Tệp tin không đúng định dạng'))
   }else{
     cb(null, true)

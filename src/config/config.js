@@ -1,7 +1,7 @@
 const config = {
   production: {
     secret: 'I_AME_GERER',
-    MONGO_URI: 'mongodb://tconnect:thinklAb202x@118.70.156.51:4014/tconnect?connectTimeoutMS=10000&authSource=tconnect&authMechanism=SCRAM-SHA-1&3t.uriVersion=3&3t.connection.name=tconnect&3t.databases=tconnect',
+    MONGO_URI: 'mongodb://mongo-1:27017,mongo-2:27018,mongo-3:27019/tconnect?replicaSet=replica-set',
     port: process.env.PORT,
     "cos": {
       "credentials": {
@@ -41,7 +41,7 @@ const config = {
   },
   development: {
     secret: 'I_AME_GERER',
-    MONGO_URI: 'mongodb://tconnect:thinklAb202x@118.70.156.51:4014/tconnect?connectTimeoutMS=10000&authSource=tconnect&authMechanism=SCRAM-SHA-1&3t.uriVersion=3&3t.connection.name=tconnect&3t.databases=tconnect',
+    MONGO_URI: 'mongodb://mongo-1:27017,mongo-2:27018,mongo-3:27019/tconnect?replicaSet=replica-set',
     port: 37922,
     "cos": {
       "credentials": {

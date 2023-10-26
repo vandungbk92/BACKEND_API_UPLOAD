@@ -41,7 +41,7 @@ export default {
   async getFileByName(req, res) {
     let fileNm = req.params.fileNm;
     const requestInfo = await Request.findOne({ files_req: fileNm }).lean();
-    if (requestInfo.typePublic === 2)
+    if (requestInfo && requestInfo.typePublic === 2)
       return res.sendFile(path.join(process.cwd(), './uploads/files/' + fileNm));
 
     let tokenAdmin = getTokenByCookie(req, 'Admin');
@@ -99,7 +99,7 @@ export default {
     let imgNm = req.params.imgNm;
     const requestInfo = await Request.findOne({ images_req: req.params.imgNm }).lean();
 
-    if (requestInfo.typePublic === 2)
+    if (requestInfo && requestInfo.typePublic === 2)
       return res.sendFile(path.join(process.cwd(), './uploads/images/' + imgNm));
 
     let tokenAdmin = getTokenByCookie(req, 'Admin');

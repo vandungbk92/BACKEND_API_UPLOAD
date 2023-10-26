@@ -2,9 +2,11 @@ import express from 'express';
 import logger from 'morgan';
 import { restRouter } from './api';
 import bodyParser from 'body-parser';
+import { connect } from './config/db';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+connect();
 
 app.use(express.json());
 

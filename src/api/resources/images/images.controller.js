@@ -40,7 +40,7 @@ export default {
 
   async getFileByName(req, res) {
     let fileNm = req.params.fileNm;
-    const requestInfo = await Request.findOne({ files_req: fileNm }).lean();
+    const requestInfo = await Request.findOne({ files_req: fileNm, is_deleted: false }).lean();
 
     if (requestInfo) {
       if (requestInfo.typePublic === 2)
@@ -98,7 +98,7 @@ export default {
         return res.status(401).json({ success: false, message: 'Bạn không có quyền truy cập!' });
       }
     } else {
-      const isFileAnswer = await Request.findOne({ files_public: fileNm }).lean();
+      const isFileAnswer = await Request.findOne({ files_public: fileNm, is_deleted: false }).lean();
       if (isFileAnswer) {
         return res.sendFile(path.join(process.cwd(), './uploads/files/' + fileNm));
       } else {
@@ -109,7 +109,7 @@ export default {
 
   async getImageByName(req, res) {
     let imgNm = req.params.imgNm;
-    const requestInfo = await Request.findOne({ images_req: req.params.imgNm }).lean();
+    const requestInfo = await Request.findOne({ images_req: req.params.imgNm, is_deleted: false }).lean();
 
     if (requestInfo) {
       if (requestInfo.typePublic === 2)
@@ -167,7 +167,7 @@ export default {
         return res.status(401).json({ success: false, message: 'Bạn không có quyền truy cập!' });
       }
     } else {
-      const isImageAnswer = await Request.findOne({ images_public: imgNm }).lean();
+      const isImageAnswer = await Request.findOne({ images_public: imgNm, is_deleted: false }).lean();
       if (isImageAnswer) {
         return res.sendFile(path.join(process.cwd(), './uploads/images/' + imgNm));
       } else {

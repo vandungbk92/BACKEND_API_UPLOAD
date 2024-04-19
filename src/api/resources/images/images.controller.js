@@ -116,13 +116,14 @@ export default {
       let tokenAdmin = getTokenByCookie(req, "Admin");
       let tokenCitizen = getTokenByCookie(req, "Citizen");
       let token = tokenAdmin || tokenCitizen;
-      console.log(tokenAdmin, config.secret, "tokenAdmin")
+
       if (token && token !== "undefined" && token.length > 15) {
         try {
           if (tokenAdmin) {
             // verifies secret and checks exp
+            console.log(tokenAdmin, config.secret, "tokenAdmin");
             jwt.verify(tokenAdmin, config.secret, function (err, decoded) {
-              
+              console.log(decoded, "decoded");
               if (err) {
                 console.log(err, err.message);
                 if (err.message === "jwt expired") {

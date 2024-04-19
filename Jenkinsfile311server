@@ -12,7 +12,7 @@ pipeline {
                 echo 'Copy project over SSH...'
                 sshPublisher(publishers: [
                     sshPublisherDesc(
-                        configName: 'Server144',
+                        configName: 'Server102',
                         transfers:
                             [sshTransfer(
                                 cleanRemote: false,

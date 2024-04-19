@@ -19,7 +19,7 @@ pipeline {
                                 excludes: '',
                                 execCommand: "docker build -t 311files ./thinklabsdev/311filesCI/ \
                                     && docker service rm fileserver || true \
-                                    && docker service create --constraint 'node.hostname==UBTH-DB-WEB-PHTH' --replicas 1 --name fileserver --mount type=bind,src=/mnt/sdb1/volumes/311/fileserver/uploads,dst=/usr/src/app/uploads --publish 3002:3001 311files \
+                                    && docker service create --network mongo-cluster --env NODE_ENV=production --replicas 1 --name fileserver --mount type=bind,src=/mnt/sdb1/volumes/311/fileserver/uploads,dst=/usr/src/app/uploads --publish 3002:3001 311files \
                                     && rm -rf ./thinklabsdev/311filesCIB \
                                     && mv ./thinklabsdev/311filesCI/ ./thinklabsdev/311filesCIB",
                                 execTimeout: 1200000,

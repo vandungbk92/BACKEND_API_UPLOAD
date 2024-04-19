@@ -161,7 +161,7 @@ export default {
             });
           }
         } catch (err) {
-          return res.status(401).json({ success: false, message: 'Bạn không có quyền truy cập!' });
+          return res.status(401).json({ success: false, message: 'Bạn không có quyền truy cập.!' });
         }
       } else {
         return res.status(401).json({ success: false, message: 'Bạn không có quyền truy cập!' });

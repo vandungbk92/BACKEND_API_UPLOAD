@@ -122,6 +122,7 @@ export default {
           if (tokenAdmin) {
             // verifies secret and checks exp
             jwt.verify(tokenAdmin, config.secret, function (err, decoded) {
+              console.log(tokenAdmin, config.secret, decoded, "decoded")
               if (err) {
                 console.log(err, err.message);
                 if (err.message === "jwt expired") {

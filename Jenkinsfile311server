@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    stages {
+        stage('Init') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage ('Deployments') {
+            steps {
+                echo 'Deploying to Production environment...'
+                echo 'Copy project over SSH...'
+                sshPublisher(publishers: [
+                    sshPublisherDesc(
+                        configName: 'Server102',
+                        transfers:
+                            [sshTransfer(
+                                cleanRemote: false,
+                                excludes: '',
+                                execCommand: "docker build -t 311files ./thinklabsdev/311filesCI/ \
+                                    && docker service rm fileserver || true \
+                                    && docker service create --replicas 1 --name fileserver --mount type=bind,src=/mnt/sdb1/volumes/311/fileserver/uploads,dst=/usr/src/app/uploads --publish 3002:3001 311files \
+                                    && rm -rf ./thinklabsdev/311filesCIB \
+                                    && mv ./thinklabsdev/311filesCI/ ./thinklabsdev/311filesCIB",
+                                execTimeout: 1200000,
+                                flatten: false,
+                                makeEmptyDirs: false,
+                                noDefaultExcludes: false,
+                                patternSeparator: '[, ]+',
+                                remoteDirectory: './thinklabsdev/311filesCI',
+                                remoteDirectorySDF: false,
+                                removePrefix: '',
+                                sourceFiles: '*, src/'
+                            )],
+                        usePromotionTimestamp: false,
+                        useWorkspaceInPromotion: false,
+                        verbose: true
+                    )
+                ])
+            }
+        }
+    }
+}

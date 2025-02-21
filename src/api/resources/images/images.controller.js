@@ -44,7 +44,7 @@ export default {
 
     // lấy danh sách file ở UserManual
     const dsFile = await UserManual.find({ files: fileNm, is_deleted: false }).lean();
-    if (dsFile) return res.sendFile(path.join(process.cwd(), "./uploads/files/" + fileNm));
+    if (dsFile && dsFile.length) return res.sendFile(path.join(process.cwd(), "./uploads/files/" + fileNm));
 
     const requestInfo = await Request.findOne({ files_req: fileNm, is_deleted: false }).lean();
 

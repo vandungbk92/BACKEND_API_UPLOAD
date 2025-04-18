@@ -42,7 +42,7 @@ const config = {
   },
   development: {
     secret: "I_AME_GERER",
-    MONGO_URI: "mongodb://mongo-1:27017,mongo-2:27018,mongo-3:27019/tconnect?replicaSet=replica-set",
+    MONGO_URI: "mongodb://tconnect:thinklAb202x@113.160.181.249:4014/tconnectv2?authSource=tconnectv2",
     port: 37922,
     cos: {
       credentials: {

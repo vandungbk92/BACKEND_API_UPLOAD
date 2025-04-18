@@ -12,6 +12,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "resolutions": {
+    "mongoose/bson": "1.0.9"
+  },
   "dependencies": {
     "bcryptjs": "2.4.3",
     "body-parser": "1.20.2",

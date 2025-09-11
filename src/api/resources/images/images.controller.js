@@ -107,7 +107,8 @@ export default {
       if (isFileAnswer) {
         return res.sendFile(path.join(process.cwd(), "./uploads/files/" + fileNm));
       } else {
-        return res.status(404).json({ success: false, message: "File không tồn tại." });
+        return res.sendFile(path.join(process.cwd(), "./uploads/files/" + fileNm));
+        // return res.status(404).json({ success: false, message: "File không tồn tại." });
       }
     }
   },
@@ -178,7 +179,8 @@ export default {
       if (isImageAnswer) {
         return res.sendFile(path.join(process.cwd(), "./uploads/images/" + imgNm));
       } else {
-        return res.status(404).json({ success: false, message: "Hình ảnh không tồn tại." });
+        return res.sendFile(path.join(process.cwd(), "./uploads/images/" + imgNm));
+        // return res.status(404).json({ success: false, message: "Hình ảnh không tồn tại." });
       }
     }
   },
